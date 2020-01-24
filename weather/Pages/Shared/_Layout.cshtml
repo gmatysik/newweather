@@ -1,0 +1,233 @@
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - weather3</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"> 
+  <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+  <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
+
+  <script lang="javascript">
+  
+    function showCoordinates(){
+        document.getElementById('dropdownMenuButton').innerText = "Search by coordinates";
+        document.getElementById('search_coordinate').style.display = "inline";
+        document.getElementById('search_name').style.display = "none";        
+    }
+
+    function showName(){
+        document.getElementById('dropdownMenuButton').innerText = "Search by name";
+        document.getElementById('search_coordinate').style.display = "none";
+        document.getElementById('search_name').style.display = "inline";
+    }
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("search_name");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+
+var loaded = true;
+
+function showSpinner(){
+    if(!loaded){
+        document.getElementById('spinner').style.display  = 'inline-block';    
+    }
+}
+
+
+function myFunction() {
+  //document.getElementById("myDropdown").classList.toggle("show");
+              //document.getElementById('spinner').style.display  = 'inline-block';
+              loaded = false;
+              setTimeout(showSpinner, 150);
+              fetch('/Index?handler=LocationName&searchWord=' + document.getElementById('search_name').value)
+                .then((response) => {
+                    return response.text();
+                })
+                .then((result) => {
+
+
+                    var array = JSON.parse(result);
+                    var innerHtml = "";
+
+                    var i;
+                    for (i = 0; i < array.length; i++) {
+                    innerHtml = innerHtml + "<a>" + array[i] + "</a>";
+                    }
+
+                    //document.getElementById('myDropdown').innerHTML = "<a>" + array[0] + "</a><a>" + array[1] + "</a>";
+                      //                      document.getElementById("myDropdown").style.display  = 'block';
+
+                      document.getElementById('myDropdown').innerHTML = innerHtml;
+                    document.getElementById("myDropdown").style.display  = 'block';
+            
+            loaded = true;
+            document.getElementById('spinner').style.display  = 'none';
+
+                });
+
+    //document.getElementById("myDropdown").style.display  = 'block';
+
+}
+
+
+function focusOut(){
+   document.getElementById("myDropdown").style.display='none';
+   document.getElementById("search_name").value="";   
+}
+
+  </script>
+
+    <style>
+    .nav-link:hover {
+        color: goldenrod;
+    }
+    </style>
+</head>
+<body>
+    <header>
+            <div class="container-fluid border-bottom">
+                <div class="row">
+                    <div class="col-md-auto py-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Search by name
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#" onclick="showName()">Search by name</a>
+                                <a class="dropdown-item" href="#" onclick="showCoordinates()">Search by coordinates</a>
+                            </div>
+                        </div>                    
+                    </div>
+
+                    <!--div class="navbar-brand col-sm-2 col-md-2 col-lg-1 col-xl-1"-->                        
+                    <div class="col-md-auto py-2">
+
+                        <div>
+                            <div id="spinner" class="loader" style="display:none"></div>                         
+                            <input type="text" id="search_name" name="search_name" placeholder="Location" style="display:inline-block" onfocusout="setTimeout(focusOut, 150)" onkeyup="filterFunction()" oninput="myFunction(true)">
+                            
+                                    <div id="myDropdown" class="dropdown-content">
+                                        <a href="#about">About</a>
+                                        <a href="#base">Base</a>
+                                        <a href="#blog">Blog</a>
+                                        <a href="#contact">Contact</a>
+                                        <a href="#custom">Custom</a>
+                                        <a href="#support">Support</a>
+                                        <a href="#tools">Tools</a>
+                                    </div>
+
+                            <span style="display:none" id="search_coordinate">
+                                Latitude: <input type="text" id="search_lat" name="search_lat" placeholder="00.00" style="display:inline" onfocusout="setTimeout(focusOut, 150)">
+                                Longitude: <input type="text" id="search_lon" name="search_lon" placeholder="00.00" style="display:inline" onfocusout="setTimeout(focusOut, 150)">
+                            </span>
+
+                        </div>
+    <script>
+        document.getElementById('search_lon').addEventListener('change', () => {
+            fetch('/Index?handler=LocationCoordinate')
+                .then((response) => {
+                    return response.text();
+                })
+                .then((result) => {
+                    document.getElementById('location').innerHTML = result;
+                });
+        });
+
+/*        document.getElementById('search_name').addEventListener('change', () => {
+            fetch('/Index?handler=LocationName')
+                .then((response) => {
+                    return response.text();
+                })
+                .then((result) => {
+
+
+                    var array = JSON.parse(result);
+
+
+                    document.getElementById('myDropdown').innerHTML = "<a>" + array[0] + "</a><a>" + array[1] + "</a>";
+                                            document.getElementById("myDropdown").style.display  = 'block';
+
+                });
+        });*/
+
+    </script>
+
+                    </div>
+                    <div class="col-md-auto py-2">
+                        <a href="#"><i class="fa fa-star">My locations</i></a>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="navbar-brand col-6">
+                    Current location:
+                    </div>
+                    <div id="location">@Context.Session.GetString("CurrentLocation")</div>
+                </div>
+            </div>        
+    </header>
+    <!--div class="wrapper" style="width: 200px;float: left;"-->
+    <div class="container-fluid">
+        <div class="row">        
+            <!--div class="col"-->
+            <div class="col-sm-2 col-md-2 col-lg-1 col-xl-1">
+
+                <nav id="sidebar">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Index">Today</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Forecast">Forecast</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/History">History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Map">Map</a>
+                        </li>
+                    </ul>
+
+                
+                </nav>
+            </div>            
+            <div class="col py-2">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+
+        </div>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - weather3 - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,64 @@
+Babol,Iran
+Babruysk,Belarus
+Bacabal,Brazil
+Bacău,Romania
+Bacolod,Philippines
+Bacoor,Philippines
+Badajoz,Spain
+Badalona,Spain
+Badlapur,India
+Bafoussam,Cameroon
+Bagaha,India
+Bagalkot,India
+Cabanatuan,Philippines
+Cabimas,Venezuela
+Cabo de Santo Agostinho,Brazil
+Cabo Frio,Brazil
+Cabuyao,Philippines
+Cachoeirinha,Brazil
+Cachoeiro de Itapemirim,Brazil
+Cadiz,Philippines
+A Coruña,Spain
+Aachen,Germany
+Aalborg,Denmark
+Aarhus,Denmark
+Aba,Nigeria
+Abadan,Iran
+Abaetetuba,Brazil
+Abakan,Russia
+Abbotabad,Pakistan
+Abbotsford,Canada
+Abengourou,Ivory Coast
+Abeokuta,Nigeria
+Da Lat,Vietnam
+Da Nang,Vietnam
+Dabgram,India
+Dąbrowa Górnicza,Poland
+Dadu,Pakistan
+Daegu,South Korea
+Daejeon,South Korea
+Daet,Philippines
+Dagupan,Philippines
+Dahod,India
+Daitō,Japan
+Dakar,Senegal
+La Ceiba,Honduras
+La Paz, Baja California Sur,Mexico
+La Paz,Bolivia
+La Plata,Argentina
+La Rioja,Argentina
+La Romana,Dominican Republic
+La Serena,Chile
+La Trinidad,Philippines
+La Unión,Costa Rica
+La Vega,Dominican Republic
+Waco,United States
+Wad Madani,Sudan
+Wafangdian,China
+Wah Cantonment,Pakistan
+Wakayama,Japan
+Wałbrzych,Poland
+Wanica,Suriname
+Wanzhou District,China
+Warangal,India
+Wardha,India
