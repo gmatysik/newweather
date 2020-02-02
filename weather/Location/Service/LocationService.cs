@@ -22,7 +22,8 @@ namespace weather.Location.Service
         {
             List<LocationDO> locations = await this.locationApi.LocationsForName(name);
             var resultsList = new List<string>();
-            locations.ForEach(x => resultsList.Add(x.City + ", " + x.Country));
+            //locations.ForEach(x => resultsList.Add(x.City + ", " + x.Country));
+            locations.ForEach(x => resultsList.Add(x.Formatted));
             return resultsList;
         }
     }

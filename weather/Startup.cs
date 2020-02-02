@@ -25,8 +25,8 @@ namespace weather
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddScoped<ILocationApi, OpenCageLocationApiServiceMock>();
-            services.AddScoped<ILocationWebService, OpenCageLocationApiServiceMock>();
+            services.AddScoped<ILocationWebService, OpenCageLocationApiService>();
+            //services.AddScoped<ILocationWebService, OpenCageLocationApiServiceMock>();
             services.AddScoped<ILocationApi, LocationApiService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddSession();

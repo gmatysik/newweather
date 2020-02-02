@@ -26,6 +26,8 @@ namespace weather.Location.Service.LocationApi
             var result = new LocationDO();
             result.City = locationDTO.results[0].components.city;
             result.Country = locationDTO.results[0].components.country;
+            //result.Country = locationDTO.results[0].components.postcode;
+            result.Formatted = locationDTO.results[0].components.postcode + ", " + result.City + ", " + result.Country;
 
             return result;   
 
@@ -41,6 +43,7 @@ namespace weather.Location.Service.LocationApi
                 locationDO.City  = location.components.city;
                 locationDO.Country  = location.components.country;
                 locationDO.County  = location.components.county;
+                locationDO.Formatted = location.formatted;
                 Enum.TryParse(location.components._type, true, out LocationType locationType) ;
                 locationDO.Type  = locationType;
                 if(LocationType.City == locationType || LocationType.Village == locationType){

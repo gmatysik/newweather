@@ -113,3 +113,5 @@
 /home/gmatysik/Projects/dotnet/weather/test/bin/Debug/netcoreapp3.0/Data/coordinates_PL.json
 /home/gmatysik/Projects/dotnet/weather/test/bin/Debug/netcoreapp3.0/Data/name_DE.json
 /home/gmatysik/Projects/dotnet/weather/test/bin/Debug/netcoreapp3.0/Data/name_PL.json
+/home/gmatysik/Projects/dotnet/weather/test/bin/Debug/netcoreapp3.0/OpenCage.Geocode.dll
+/home/gmatysik/Projects/dotnet/weather/test/bin/Debug/netcoreapp3.0/ServiceStack.Text.dll

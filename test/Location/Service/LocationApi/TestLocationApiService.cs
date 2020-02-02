@@ -32,15 +32,17 @@ namespace test.Location
             
             Assert.AreEqual("Wroclaw", location.City);
             Assert.AreEqual("Poland", location.Country);
-            Assert.AreEqual("Wroclaw, Poland", location.ToString());
+            Assert.AreEqual("53-441, Wroclaw, Poland", location.ToString());
 
         }
 
         [Test]
-        public void TestLocationForName()
+        public void TestLocationForName() 
         {
             ILocationApi locationService = new LocationApiService(new OpenCageLocationApiServiceMock());
-            List<LocationDO> locationsList = locationService.LocationsForName("test");
+            var taskList = locationService.LocationsForName("test");
+
+            var locationsList = taskList.Result;
 
             Assert.AreEqual(5, locationsList.Count);
             Assert.AreEqual("Germany", locationsList[0].Country);
