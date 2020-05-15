@@ -17,7 +17,15 @@ namespace weather.Location.Service
 
         public LocationDO LocationForCoordinates(string latitude, string longitude)
         {
-            throw new NotImplementedException();
+            var locationDTO = _locationWebService.LocationForCoordinates(latitude, longitude);
+            
+            var result = new LocationDO();
+            result.City = locationDTO.results[0].components.city;
+            result.Country = locationDTO.results[0].components.country;
+            //result.Country = locationDTO.results[0].components.postcode;
+            result.Formatted = locationDTO.results[0].components.postcode + ", " + result.City + ", " + result.Country;
+
+            return result;   
         }
 
         public async Task<List<String>> LocationsForName(string name)
@@ -30,7 +38,7 @@ namespace weather.Location.Service
             return resultsList;
         }
 
-        public async Task<List<LocationDO>> LocationsFor(string name)
+        private async Task<List<LocationDO>> LocationsFor(string name)
         {
             var locations = new List<LocationDO>();
             var locationJSON = await _locationWebService.LocationsForName(name);

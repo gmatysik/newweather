@@ -17,7 +17,7 @@ namespace weather
     public class Startup
     {
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env, IHostEnvironment host)
         {
             Configuration = configuration;
         }
@@ -29,7 +29,6 @@ namespace weather
         {
             //services.AddScoped<ILocationWebService, OpenCageLocationApiService>();
             services.AddScoped<ILocationWebService, OpenCageLocationApiServiceMock>();
-            services.AddScoped<ILocationApi, LocationApiService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddSession();
             services.AddDistributedMemoryCache();            

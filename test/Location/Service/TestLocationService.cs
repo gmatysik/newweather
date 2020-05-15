@@ -44,5 +44,29 @@ namespace test.Location.Service
 
         }
 
+        [Test]
+        public void TestCoordinatesDE()
+        {
+            //ILocationApi locationService = new LocationApiService(new OpenCageLocationApiServiceMock());
+            
+            LocationDO location = locationService.LocationForCoordinates("49.50", "11.00");
+            
+            Assert.AreEqual("Fürth", location.City);
+            Assert.AreEqual("Germany", location.Country);
+        }
+
+        [Test]
+        public void TestCoordinatesPL()
+        {
+            //ILocationApi locationService = new LocationApiService(new OpenCageLocationApiServiceMock());
+            
+            LocationDO location = locationService.LocationForCoordinates("51.10", "17.00");
+            
+            Assert.AreEqual("Wroclaw", location.City);
+            Assert.AreEqual("Poland", location.Country);
+            Assert.AreEqual("53-441, Wroclaw, Poland", location.ToString());
+
+        }
+
     }
 }
