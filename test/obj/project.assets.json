@@ -2083,7 +2083,7 @@
           "Microsoft.AspNetCore.Http.Extensions": "2.2.0",
           "Model": "1.0.0",
           "Newtonsoft.Json": "12.0.3",
-          "OpenCage.Geocode.DotNetStandard": "(, )"
+          "OpenCage.Geocode.DotNetStandard": "0.0.0"
         },
         "compile": {
           "bin/placeholder/weather.dll": {}
@@ -7228,11 +7228,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/gmatysik/Projects/dotnet/weather/test/test.csproj",
+      "projectUniqueName": "/home/gmatysik/Projects/newweather/test/test.csproj",
       "projectName": "test",
-      "projectPath": "/home/gmatysik/Projects/dotnet/weather/test/test.csproj",
+      "projectPath": "/home/gmatysik/Projects/newweather/test/test.csproj",
       "packagesPath": "/home/gmatysik/.nuget/packages/",
-      "outputPath": "/home/gmatysik/Projects/dotnet/weather/test/obj/",
+      "outputPath": "/home/gmatysik/Projects/newweather/test/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/gmatysik/.nuget/NuGet/NuGet.Config"
@@ -7246,8 +7246,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "/home/gmatysik/Projects/dotnet/weather/weather/weather.csproj": {
-              "projectPath": "/home/gmatysik/Projects/dotnet/weather/weather/weather.csproj"
+            "/home/gmatysik/Projects/newweather/weather/weather.csproj": {
+              "projectPath": "/home/gmatysik/Projects/newweather/weather/weather.csproj"
             }
           }
         }
@@ -7298,6 +7298,10 @@
         "warn": true,
         "downloadDependencies": [
           {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.0.1, 3.0.1]"
+          },
+          {
             "name": "Microsoft.NETCore.App.Ref",
             "version": "[3.0.0, 3.0.0]"
           }
@@ -7307,7 +7311,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.101/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
       }
     }
   },

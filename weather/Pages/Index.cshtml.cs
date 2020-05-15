@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using weather.Location.Service;
+using System.Text;
 
 namespace weather.Pages
 {
@@ -15,6 +16,7 @@ namespace weather.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly ILocationService _locationService;
+        private List<string> locationList = new List<string>();
 
         public IndexModel(ILogger<IndexModel> logger, ILocationService locationService)
         {
@@ -24,9 +26,8 @@ namespace weather.Pages
 
         public void OnGet()
         {
-
+            HttpContext.Session.SetString("CurrentSelection", "");
         }
-
 
         public IActionResult OnGetLocationCoordinate()
         {
@@ -44,15 +45,24 @@ namespace weather.Pages
             
             List<String> locationsList = await _locationService.LocationsForName(searchWord);
             
-            /*var list = new List<string>();
-            list.Add("About" + searchWord);
-            list.Add("Test1" + searchWord);
-            System.Threading.Thread.Sleep(3000);*/
             System.Threading.Thread.Sleep(3000);
+            //HttpContext.Session.Set("locationsList", Encoding.UTF8.GetBytes(locationsList)) ;
             return new JsonResult(locationsList);
-            //ViewData["CurrentLocation"] = HttpContext.Session.GetString("CurrentLocation");
-            //return Content("TesT");
         }
+
+        public IActionResult OnPostSelectLocation(String selectedLocation){
+            System.Console.WriteLine("OnPostSelectLocation");
+            
+            var location = HttpContext.Session.GetString("CurrentSelection");            
+
+            HttpContext.Session.SetString("CurrentLocation", selectedLocation);
+            
+            if(location != null && !location.Equals("")){
+                return new RedirectToPageResult(location.ToString());
+            } 
+            return new PageResult();
+        }
+
 
         
     }

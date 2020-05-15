@@ -8,10 +8,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"> 
-  <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
-  <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
-
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"> 
+    <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+    <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
   <script lang="javascript">
   
     function showCoordinates(){
@@ -50,10 +49,12 @@ function showSpinner(){
     }
 }
 
+function selectLocation(location){
+    document.getElementById('selectedLocation').value = location;
+    document.getElementById('locationForm').submit();
+}
 
 function myFunction() {
-  //document.getElementById("myDropdown").classList.toggle("show");
-              //document.getElementById('spinner').style.display  = 'inline-block';
               loaded = false;
               setTimeout(showSpinner, 150);
               fetch('/Index?handler=LocationName&searchWord=' + document.getElementById('search_name').value)
@@ -61,31 +62,20 @@ function myFunction() {
                     return response.text();
                 })
                 .then((result) => {
-
-
                     var array = JSON.parse(result);
                     var innerHtml = "";
 
                     var i;
                     for (i = 0; i < array.length; i++) {
-                    innerHtml = innerHtml + "<a>" + array[i] + "</a>";
+                        innerHtml = innerHtml + "<a onclick=selectLocation('" + i + "')>" + array[i] + "</a>";
                     }
 
-                    //document.getElementById('myDropdown').innerHTML = "<a>" + array[0] + "</a><a>" + array[1] + "</a>";
-                      //                      document.getElementById("myDropdown").style.display  = 'block';
-
-                      document.getElementById('myDropdown').innerHTML = innerHtml;
-                    document.getElementById("myDropdown").style.display  = 'block';
-            
-            loaded = true;
-            document.getElementById('spinner').style.display  = 'none';
-
+                    document.getElementById('myDropdown').innerHTML = innerHtml;
+                    document.getElementById("myDropdown").style.display  = 'block';            
+                    loaded = true;
+                    document.getElementById('spinner').style.display  = 'none';
                 });
-
-    //document.getElementById("myDropdown").style.display  = 'block';
-
 }
-
 
 function focusOut(){
    document.getElementById("myDropdown").style.display='none';
@@ -149,24 +139,6 @@ function focusOut(){
                     document.getElementById('location').innerHTML = result;
                 });
         });
-
-/*        document.getElementById('search_name').addEventListener('change', () => {
-            fetch('/Index?handler=LocationName')
-                .then((response) => {
-                    return response.text();
-                })
-                .then((result) => {
-
-
-                    var array = JSON.parse(result);
-
-
-                    document.getElementById('myDropdown').innerHTML = "<a>" + array[0] + "</a><a>" + array[1] + "</a>";
-                                            document.getElementById("myDropdown").style.display  = 'block';
-
-                });
-        });*/
-
     </script>
 
                     </div>
@@ -182,8 +154,16 @@ function focusOut(){
                     Current location:
                     </div>
                     <div id="location">@Context.Session.GetString("CurrentLocation")</div>
+                    @Html.AntiForgeryToken()
                 </div>
             </div>        
+
+            
+<form method="post" action="/Index?handler=SelectLocation" id ="locationForm">
+    <input type="hidden" id="selectedLocation" name ="selectedLocation" value="10"/>
+    @Html.AntiForgeryToken()
+</form>
+
     </header>
     <!--div class="wrapper" style="width: 200px;float: left;"-->
     <div class="container-fluid">

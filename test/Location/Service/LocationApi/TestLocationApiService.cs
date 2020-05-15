@@ -5,6 +5,7 @@ using NUnit.Framework;
 using weather.Data.Json;
 using weather.Location;
 using weather.Location.Service.LocationApi;
+using System.Threading.Tasks;
 
 namespace test.Location
 {

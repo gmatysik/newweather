@@ -10,11 +10,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using weather.Location.Service.LocationApi;
 using weather.Location.Service;
+using weather.Filters;
 
 namespace weather
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,13 +27,16 @@ namespace weather
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ILocationWebService, OpenCageLocationApiService>();
-            //services.AddScoped<ILocationWebService, OpenCageLocationApiServiceMock>();
+            //services.AddScoped<ILocationWebService, OpenCageLocationApiService>();
+            services.AddScoped<ILocationWebService, OpenCageLocationApiServiceMock>();
             services.AddScoped<ILocationApi, LocationApiService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddSession();
-            services.AddDistributedMemoryCache();
-            services.AddRazorPages();
+            services.AddDistributedMemoryCache();            
+            services.AddRazorPages().AddMvcOptions(options =>
+            {
+                options.Filters.Add(new SampleAsyncPageFilter(Configuration));                
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +63,8 @@ namespace weather
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-            });
+                endpoints.MapControllers();
+                });
         }
     }
 }

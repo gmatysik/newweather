@@ -16,7 +16,8 @@ namespace weather.Location.Service.LocationApi
 
         public LocationApiService(ILocationWebService locationWebService)
         {
-            _locationWebService = locationWebService;//mock or real service
+            
+            _locationWebService = locationWebService;//mock or real service            
         }
 
         public LocationDO LocationForCoordinates(string latitude, string longitude)

@@ -20,7 +20,6 @@ namespace weather.Pages
 
         public void OnGet()
         {
-            ViewData["CurrentLocation"] = HttpContext.Session.GetString("CurrentLocation");
         }
     }
 }
