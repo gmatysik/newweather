@@ -8,7 +8,7 @@ namespace weather.Location.Service
     {
         LocationDO LocationForCoordinates(string latitude, string longitude);
 
-        Task<List<String>> LocationsForName(string name);
+        Task<List<LocationDO>> LocationsForName(string name);
 
     }
 }

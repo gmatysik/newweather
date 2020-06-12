@@ -27,15 +27,16 @@ namespace weather.Location.Service
 
             return result;   
         }
-
-        public async Task<List<String>> LocationsForName(string name)
+        
+        public async Task<List<LocationDO>> LocationsForName(string name)
         {
             //List<LocationDO> locations = await this.locationApi.LocationsForName(name);
-            List<LocationDO> locations = await this.LocationsFor(name);
-            var resultsList = new List<string>();
+            var locations = await this.LocationsFor(name);
+            //var resultsList = new List<string>();
             //locations.ForEach(x => resultsList.Add(x.City + ", " + x.Country));
-            locations.ForEach(x => resultsList.Add(x.Formatted));
-            return resultsList;
+            //locations.ForEach(x => resultsList.Add(x.Formatted));
+            //return resultsList;
+            return locations;
         }
 
         private async Task<List<LocationDO>> LocationsFor(string name)

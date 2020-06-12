@@ -30,17 +30,17 @@ namespace test.Location.Service
         [Test]
         public void TestValidResults()
         {
-            Task<List<string>> results = locationService.LocationsForName("");
+            Task<List<LocationDO>> results = locationService.LocationsForName("");
 
 
             var locationsList = results.Result;
 
             Assert.AreEqual(5, locationsList.Count);
-            Assert.AreEqual("90762 Fürth, Germany", locationsList[0]);
-            Assert.AreEqual("64658 Fürth, Germany", locationsList[1]);
-            Assert.AreEqual("2564 Furth, Austria", locationsList[2]);
-            Assert.AreEqual("84095 Furth, Germany", locationsList[3]);
-            Assert.AreEqual("94163 Furth, Germany", locationsList[4]);
+            Assert.AreEqual("90762 Fürth, Germany", locationsList[0].Formatted);
+            Assert.AreEqual("64658 Fürth, Germany", locationsList[1].Formatted);
+            Assert.AreEqual("2564 Furth, Austria", locationsList[2].Formatted);
+            Assert.AreEqual("84095 Furth, Germany", locationsList[3].Formatted);
+            Assert.AreEqual("94163 Furth, Germany", locationsList[4].Formatted);
 
         }
 

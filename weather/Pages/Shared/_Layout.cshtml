@@ -67,7 +67,7 @@ function myFunction() {
 
                     var i;
                     for (i = 0; i < array.length; i++) {
-                        innerHtml = innerHtml + "<a onclick=selectLocation('" + i + "')>" + array[i] + "</a>";
+                        innerHtml = innerHtml + "<a onclick=selectLocation('" + i + "')>" + array[i].formatted + "</a>";
                     }
 
                     document.getElementById('myDropdown').innerHTML = innerHtml;
@@ -150,10 +150,10 @@ function focusOut(){
 
 
                 <div class="row">
-                    <div class="navbar-brand col-6">
+                    <div class="navbar-brand col-md-auto">
                     Current location:
                     </div>
-                    <div id="location">@Context.Session.GetString("CurrentLocation")</div>
+                    <div id="location" class="navbar-brand">@Context.Session.GetString("CurrentLocation")</div>
                     @Html.AntiForgeryToken()
                 </div>
             </div>        

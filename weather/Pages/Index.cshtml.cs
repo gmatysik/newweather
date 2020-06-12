@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using weather.Location.Service;
 using System.Text;
+using weather.Location;
+using weather.Common;
 
 namespace weather.Pages
 {
@@ -43,9 +45,10 @@ namespace weather.Pages
         {
             System.Console.WriteLine("OnGetLocationName");
             
-            List<String> locationsList = await _locationService.LocationsForName(searchWord);
+            List<LocationDO> locationsList = await _locationService.LocationsForName(searchWord);
             
             System.Threading.Thread.Sleep(3000);
+            HttpContext.Session.SetObjectAsJson("locations", locationsList);
             //HttpContext.Session.Set("locationsList", Encoding.UTF8.GetBytes(locationsList)) ;
             return new JsonResult(locationsList);
         }
@@ -54,11 +57,15 @@ namespace weather.Pages
             System.Console.WriteLine("OnPostSelectLocation");
             
             var location = HttpContext.Session.GetString("CurrentSelection");            
+            List<LocationDO> locations = HttpContext.Session.GetObjectAsJson<List<LocationDO>>("locations");
 
-            HttpContext.Session.SetString("CurrentLocation", selectedLocation);
+            //HttpContext.Session.SetString("CurrentLocation", selectedLocation);
+            HttpContext.Session.SetString("CurrentLocation", locations[Int32.Parse(selectedLocation)].Formatted);
             
+
             if(location != null && !location.Equals("")){
                 return new RedirectToPageResult(location.ToString());
+                //return new RedirectToPageResult(locations[Int32.Parse(selectedLocation)].Formatted);
             } 
             return new PageResult();
         }
